@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package grpc;
+
+option go_package = "./";
+
+service TestMethod {
+  rpc upload(stream UploadFileRequest) returns (UploadFileResponse);
+}
+
+message UploadFileRequest {
+  oneof data {
+    FileInfo info = 1;
+    bytes chunk_data = 2;
+  };
+}
+
+message FileInfo {
+  string supplier_id = 1;
+  string file_name = 2;
+}
+
+message UploadFileResponse {
+  uint32 size = 1;
+}
